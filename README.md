@@ -1,8 +1,4 @@
-### Complete File and Folder Structure for the Django Project
 
-Here's a detailed file and folder structure based on your provided images and descriptions. This structure includes all necessary files and directories for a typical Django project.
-
-```
 Skill-Swap/
 ├── accounts/
 │   ├── __pycache__/
