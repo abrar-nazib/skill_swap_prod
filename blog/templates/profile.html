@@ -1,0 +1,220 @@
+{% extends './layout.html' %}
+{% load static %}
+{% block links %}
+  <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/singleArt.css' %}" />
+
+  <style>
+    .profile-info {
+      display: flex;
+      margin-top: 20px;
+      margin-left: 50px;
+    }
+    
+    .profile-photo {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+    
+    .profile-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .profile-details {
+      margin-left: 20px;
+      flex-grow: 1;
+    }
+    .nav-link:not(.active) {
+      color: white;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 90%;
+    }
+    
+    table,
+    th,
+    td {
+      border: 1px solid white;
+    }
+  </style>
+{% endblock %}
+{% block body %}
+  <div class="messege container my-2">
+    {% for message in messages %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{ message }}✔</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="header">
+    <h1>Profile</h1>
+    <hr />
+  </div>
+  <div class="profile-info">
+    <div class="profile-photo">
+      {% if user.image %}
+        <img src="{{ user.image.url }}" class="card-img-top" alt="Project 1" />
+      {% else %}
+        <img src="../../media/images/default.jpg" class="card-img-top" alt="Project 1" />
+      {% endif %}
+    </div>
+    <div class="profile-details">
+      <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+      {% if user.is_faculty %}
+        <h5>{{ user.designation }}</h5>
+      {% else %}
+        <h5>Student</h5>
+      {% endif %}
+
+      {% if user.department %}
+        <h6>{{ user.department }}</h6>
+      {% endif %}
+      {% if user.university %}
+        <h6>{{ user.university }}</h6>
+      {% endif %}
+
+      <div class="my-2">
+        {% if user.scholar_link %}
+          <a href="{{ user.scholar_link }}"><i class="fa-brands fa-google-scholar fa-2x"></i></a>
+        {% endif %}
+        {% if user.github_link %}
+          <a href="{{ user.github_link }}"><i class="fa-brands fa-github fa-2x"></i></a>
+        {% endif %}
+        {% if user.linkedin_link %}
+          <a href="{{ user.linkedin_link }}"><i class="fa-brands fa-linkedin fa-2x"></i></a>
+        {% endif %}
+      </div>
+      {% if request.user == user %}
+        <div class="my-2">
+          <a href="/updateProfile" class="btn btn-primary">Update Profile</a>
+        </div>
+      {% endif %}
+
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-education-tab" data-bs-toggle="tab" data-bs-target="#nav-education" type="button" role="tab" aria-controls="nav-education" aria-selected="true">Education</button>
+        <button class="nav-link" id="nav-experience-tab" data-bs-toggle="tab" data-bs-target="#nav-experience" type="button" role="tab" aria-controls="nav-experience" aria-selected="false">Experience</button>
+        <button class="nav-link" id="nav-research-tab" data-bs-toggle="tab" data-bs-target="#nav-research" type="button" role="tab" aria-controls="nav-research" aria-selected="false">Research Activities</button>
+        {% comment %}Button tab for publication{% endcomment %}
+        <button class="nav-link" id="nav-publication-tab" data-bs-toggle="tab" data-bs-target="#nav-publication" type="button" role="tab" aria-controls="nav-publication" aria-selected="false">Publication</button>
+        <!-- Button for contact -->
+        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button>
+      </div>
+
+      <div class="tab-content" id="nav-tabContent" style="margin-top: 10px; height: 200px; overflow-y: auto;">
+        <div class="tab-pane fade show active" id="nav-education" role="tabpanel" aria-labelledby="nav-education-tab">
+          <!-- Education Content -->
+          <p>{{ user.education|safe }}</p>
+        </div>
+        <div class="tab-pane fade" id="nav-experience" role="tabpanel" aria-labelledby="nav-experience-tab">
+          <!-- Experience Content -->
+          <p>{{ user.experience|safe }}</p>
+        </div>
+        <div class="tab-pane fade" id="nav-research" role="tabpanel" aria-labelledby="nav-research-tab">
+          <!-- Research Activities Content -->
+          <p>{{ user.research_activities|safe }}</p>
+        </div>
+        <div class="tab-pane fade" id="nav-publication" role="tabpanel" aria-labelledby="nav-publication-tab">
+          <!-- Publication Content -->
+          <p>{{ user.publication|safe }}</p>
+        </div>
+
+        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+          <!-- Contact Content -->
+          <p>{{ user.contact|safe }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="header">
+    {% if search %}
+      <h1>{{ search }}</h1>
+    {% else %}
+      <h1>Projects and Posts</h1>
+    {% endif %}
+    <hr />
+  </div>
+
+  <div class="container blog-content">
+    {% for post in articles %}
+      <article class="postcard dark blue" data-card="{{ post.id }}">
+        <a class="postcard__img_link" href="{% url 'blog:singleArt' post.id %}">
+          {% if post.artImage %}
+            <img class="postcard__img" src="{{ post.artImage.url }}" alt="Image Title" />
+          {% else %}
+            <img class="postcard__img" src="../../media/images/default.jpg" alt="Image Title" />
+          {% endif %}
+        </a>
+        <div class="postcard__text">
+          <h1 class="postcard__title blue"><a href="{% url 'blog:singleArt' post.id %}">{{ post.title }}</a></h1>
+          <div class="postcard__subtitle small">
+            <i class="fas fa-calendar-alt mr-2"></i>{{ post.created }}
+          </div>
+          <div class="postcard__bar"></div>
+          <div class="postcard__preview-txt">{{ post.desc }}</div>
+          <ul class="postcard__tagbox">
+            {% for cat in post.category %}
+              <li class="tag__item">
+                <i class="fas fa-tag mr-2"></i>{{ cat }}
+              </li>
+            {% endfor %}
+            <!-- <li class="tag__item"><i class="fas fa-clock mr-2"></i>5 mins.</li> -->
+            {% if user.is_authenticated %}
+              {% if user in post.bookmarks.all %}
+                <li class="tag__item play blue save saved" id="{{ post.pk }}">
+                  <i class="fa-regular fa-bookmark"></i><span class="save-txt">Saved</span>
+                </li>
+              {% else %}
+                <li class="tag__item play save blue pointed" id="{{ post.id }}" data-bs-toggle="tooltip" data-bs-title="Default tooltip">
+                  <i class="fa-regular fa-bookmark"></i><span class="save-txt">Save</span>
+                </li>
+              {% endif %}
+              {% if user != post.owner %}
+                {% if user in post.upvote.all %}
+                  <li class="tag__item play blue vote voted" data-vote="{{ post.id }}">
+                    <i class="fa-solid fa-angle-up"></i><span class="vote-num">{{ post.upvote.count }}</span>
+                  </li>
+                {% else %}
+                  <li class="tag__item play blue vote" data-vote="{{ post.id }}">
+                    <i class="fa-solid fa-angle-up"></i><span class="vote-num">{{ post.upvote.count }}</span>
+                  </li>
+                {% endif %}
+              {% else %}
+                <li class="tag__item play blue">
+                  <span>{{ post.upvote.count }} vote</span>
+                </li>
+              {% endif %}
+
+              {% if user == post.owner %}
+                <li class="tag__item play blue delete pointed" data-delete="{{ post.id }}">
+                  <i class="fa-regular fa-trash-can"></i>
+                </li>
+                <a href="{% url 'blog:update' post.id %}">
+                  <li class="tag__item play blue pointed" data-update="{{ post.id }}">
+                    <i class="fa-regular fa-pen-to-square"></i> Update
+                  </li>
+                </a>
+              {% endif %}
+            {% endif %}
+          </ul>
+        </div>
+      </article>
+    {% empty %}
+      {% if search %}
+        <div class="alert alert-info" role="alert">
+          <strong>OOPS, There is no Project in this Category 😥...</strong>
+        </div>
+      {% else %}
+        <div class="alert alert-info" role="alert">
+          <strong>There is no Project right now. Have You Done One!!</strong>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endblock %}

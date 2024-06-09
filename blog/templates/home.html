@@ -1,0 +1,87 @@
+{% extends './layout.html' %}
+{% load static %}
+
+
+{% block title %}
+  {{ title }}
+{% endblock title %}
+  
+
+{% block links %}
+  <link rel="stylesheet" href="{% static 'css/index.css' %}">
+  <style>
+    .hero {
+        background: url('/static/hero.jpg') no-repeat center center;
+        background-size: cover;
+        color: white;
+        text-align: center;
+        padding: 100px 0;
+    }
+
+    .hero h1 {
+        font-size: 3.5rem;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+    }
+
+    .category-card img {
+        height: 150px;
+        object-fit: cover;
+    }
+
+    .category-card {
+        transition: transform 0.2s;
+    }
+
+    .category-card:hover {
+        transform: scale(1.05);
+    }
+
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+      }
+
+    </style>
+{% endblock links %}
+  
+
+{% block body %}
+<div class="hero">
+    <div class="container">
+        <h1>Welcome to Skill Swap</h1>
+        <p>An Amazing Community where you can Share your Projects Learn from Others and Can Collaborate.</p>
+        <a href="/add" class="btn btn-primary btn-lg">Add Your Project</a>
+    </div>
+</div>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col text-center">
+            <h2>Featured Projects</h2>
+            <p>Explore some of the amazing projects created by our talented students and faculties.</p>
+        </div>
+    </div>
+    <div class="row">
+        {% for post in articles %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                {% if post.artImage %} 
+                <img src="{{ post.artImage.url }}" class="card-img-top" alt="Project 1" />
+      {% else %}
+        <img src="../../media/images/default.jpg" class="card-img-top" alt="Project 1" />
+      {% endif %}
+
+                <div class="card-body dark blue">
+                    <h5 class="card-title">{{post.title}}</h5>
+                    <p class="card-text">{{post.desc}}</p>
+                    <a href="{% url 'blog:singleArt' post.id %}" class="btn btn-primary">View Project</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock body %}
+  

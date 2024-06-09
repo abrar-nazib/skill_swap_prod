@@ -1,0 +1,105 @@
+{% extends './layout.html' %}
+{% load static %}
+{% block title %}
+  Categories
+{% endblock %}
+
+{% block links %}
+  <link rel="stylesheet" href="{% static 'css/category.css' %}" />
+{% endblock %}
+
+{% block body %}
+  <div class="header">
+    <h1>Categories😎</h1>
+    <hr />
+  </div>
+  <div class="categorys">
+    <a href="{% url 'blog:category' 'basic_robotics' %}">
+      <div class="profile-card-2">
+        <img src="../../media/images/basic_robotics.jpeg" class="img img-responsive" />
+        <div class="profile-name">Basic Robotics</div>
+      </div>
+    </a>
+    <a href="{% url 'blog:category' 'advanced_robotics' %}">
+      <div class="profile-card-2">
+        <img src="../../media/images/advanced_robotics.jpeg" class="img img-responsive" />
+        <div class="profile-name">Advanced Robotics</div>
+      </div>
+    </a>
+    <a href="{% url 'blog:category' 'soft_robotics' %}">
+      <div class="profile-card-2">
+        <img src="../../media/images/soft_robotics.jpeg" class="img img-responsive" />
+        <div class="profile-name">Soft Robotics</div>
+      </div>
+    </a>
+    <a href="{% url 'blog:category' 'medical_robotics' %}">
+      <div class="profile-card-2">
+        <img src="../../media/images/medical_robotics.jpeg" class="img img-responsive" />
+        <div class="profile-name">Medical Robotics</div>
+      </div>
+    </a>
+
+    <a href="{% url 'blog:category' 'cad' %}">
+      <div class="profile-card-2">
+        <img src="../../media/images/cad.jpeg" class="img img-responsive" />
+        <div class="profile-name">CAD</div>
+      </div>
+    </a>
+
+    <a href="{% url 'blog:category' 'simulation' %}">
+      <div class="profile-card-2">
+        <img src="../../media/images/simulation.jpeg" class="img img-responsive" />
+        <div class="profile-name">Simulation</div>
+      </div>
+    </a>
+
+    <a href="{% url 'blog:category' 'machine_learning' %}">
+      <div class="profile-card-2">
+        <img src="../../media/images/machine_learning.jpeg" class="img img-responsive" />
+        <div class="profile-name">Machine Learning</div>
+      </div>
+    </a>
+
+    <a href="{% url 'blog:category' 'deep_learning' %}">
+      <div class="profile-card-2">
+        <img src="../../media/images/deep_learning.jpeg" class="img img-responsive" />
+        <div class="profile-name">Deep Learning</div>
+      </div>
+    </a>
+
+    <a href="{% url 'blog:category' 'image_processing' %}">
+      <div class="profile-card-2">
+        <img src="../../media/images/image_processing.jpeg" class="img img-responsive" />
+        <div class="profile-name">Image Processing</div>
+      </div>
+    </a>
+
+    <a href="{% url 'blog:category' 'generative_ai' %}">
+      <div class="profile-card-2">
+        <img src="../../media/images/generative_ai.jpeg" class="img img-responsive" />
+        <div class="profile-name">Generative AI</div>
+      </div>
+    </a>
+
+    <a href="{% url 'blog:category' 'intelligent_system' %}">
+      <div class="profile-card-2">
+        <img src="../../media/images/intelligent_system.jpeg" class="img img-responsive" />
+        <div class="profile-name">Intelligent System</div>
+      </div>
+    </a>
+
+    <a href="{% url 'blog:category' 'tensorflow' %}">
+      <div class="profile-card-2">
+        <img src="../../media/images/tensorflow.jpeg" class="img img-responsive" />
+        <div class="profile-name">Tensorflow</div>
+      </div>
+    </a>
+
+    <a href="{% url 'blog:category' 'pytorch' %}">
+      <div class="profile-card-2">
+        <img src="../../media/images/pytorch.jpeg" class="img img-responsive" />
+        <div class="profile-name">Pytorch</div>
+      </div>
+    </a>
+  </div>
+{% endblock %}

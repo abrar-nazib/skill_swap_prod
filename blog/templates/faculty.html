@@ -1,0 +1,54 @@
+{% extends './layout.html' %}
+{% load static %}
+
+{% block title %}
+  {{ title }}
+{% endblock %}
+
+{% block links %}
+  <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+  <style>
+    .category-card img {
+      height: 250px;
+      width: 100%;
+      overflow: hidden;
+    }
+    
+    .category-card {
+      transition: transform 0.2s;
+    }
+    
+    .category-card:hover {
+      transform: scale(1.05);
+    }
+  </style>
+{% endblock %}
+
+{% block body %}
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col text-center">
+        <h2>Faculty Members</h2>
+      </div>
+    </div>
+    <div class="row">
+      {% for member in members %}
+        <div class="col-md-3 mb-4">
+          <div class="card category-card">
+            {% if member.image %}
+              <img src="{{ member.image.url }}" class="card-img-top" alt="{{ member.username }}" />
+            {% else %}
+              <img src="../../media/images/default.jpg" class="card-img-top" alt="User" />
+            {% endif %}
+
+            <div class="card-body dark blue">
+              <h5 class="card-title">{{ member.first_name }} {{ member.last_name }}</h5>
+              <p class="card-text">{{ member.designation }}</p>
+              <a href="/profile/{{ member.id }}" class="btn btn-primary">View Profile</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
