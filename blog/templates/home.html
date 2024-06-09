@@ -8,10 +8,10 @@
   
 
 {% block links %}
-  <link rel="stylesheet" href="{% static 'css/index.css' %}">
+  <link rel="stylesheet" href="{% static 'blog/css/index.css' %}">
   <style>
     .hero {
-        background: url('/static/hero.jpg') no-repeat center center;
+        background: url('/static/blog/hero.jpg') no-repeat center center;
         background-size: cover;
         color: white;
         text-align: center;
@@ -70,7 +70,7 @@
                 {% if post.artImage %} 
                 <img src="{{ post.artImage.url }}" class="card-img-top" alt="Project 1" />
       {% else %}
-        <img src="../../media/images/default.jpg" class="card-img-top" alt="Project 1" />
+        <img src="/media/images/default.jpg" class="card-img-top" alt="Project 1" />
       {% endif %}
 
                 <div class="card-body dark blue">
